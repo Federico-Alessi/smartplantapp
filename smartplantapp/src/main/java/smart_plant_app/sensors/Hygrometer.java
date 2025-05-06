@@ -1,4 +1,4 @@
-package smart_plant_app.sensers;
+package smart_plant_app.sensors;
 
 public class Hygrometer implements Sensor {
     private float humidity = 0.0f; // default humidity

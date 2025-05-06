@@ -1,4 +1,4 @@
-package smart_plant_app.sensers.adapter;
+package smart_plant_app.sensors.adapter;
 
 public class LegacySensor {
 

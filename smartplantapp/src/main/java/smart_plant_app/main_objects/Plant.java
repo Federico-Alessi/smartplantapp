@@ -1,5 +1,5 @@
 package smart_plant_app.main_objects;
-import smart_plant_app.sensers.Sensor;
+import smart_plant_app.sensors.Sensor;
 
 public class Plant implements House {
     private String name = "";
@@ -26,7 +26,8 @@ public class Plant implements House {
 
     public float readSensor(Sensor sensor) {
         // Simulate reading a sensor value
-        return sensor.readValue(); // Returns the value read from the sensor
+        float sensorValue = sensor.readValue(); // Call the readValue method of the sensor
+        return sensorValue; // Return the sensor value
     }
     
 }

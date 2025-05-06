@@ -1,4 +1,4 @@
-package smart_plant_app.sensers;
+package smart_plant_app.sensors;
 
 public class Thermometer implements Sensor {
     private float temperature = 0.0f; // default temperature

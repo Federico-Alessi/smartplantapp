@@ -1,4 +1,4 @@
-package smart_plant_app.sensers;
+package smart_plant_app.sensors;
 
 public class Photometer implements Sensor {
     private float lightIntensity = 0.0f; // default light intensity

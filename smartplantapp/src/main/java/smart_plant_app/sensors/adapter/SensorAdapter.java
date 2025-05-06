@@ -1,5 +1,5 @@
-package smart_plant_app.sensers.adapter;
-import smart_plant_app.sensers.Sensor;
+package smart_plant_app.sensors.adapter;
+import smart_plant_app.sensors.Sensor;
 
 public class SensorAdapter implements Sensor {
 
