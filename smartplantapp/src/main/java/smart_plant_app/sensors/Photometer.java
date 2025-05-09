@@ -6,7 +6,7 @@ public class Photometer implements Sensor {
     @Override
     public float readValue() {
         // Simulate reading the light intensity value from a photometer sensor
-        lightIntensity = (float) (-20 + Math.random() * 31); // Placeholder for actual sensor logic
-        return lightIntensity; // Returns light intensity value
+        lightIntensity = (float) (100 + Math.random() * 99_900); // Values between 100 and 100,000 lux
+        return Math.round(lightIntensity * 10) / 10.0f; // Rounded to 1 decimal place
     } 
 }
