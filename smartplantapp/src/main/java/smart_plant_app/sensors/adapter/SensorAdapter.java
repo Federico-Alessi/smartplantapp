@@ -5,6 +5,12 @@ public class SensorAdapter implements Sensor {
 
     private  final LegacySensor legacySensor; // Instance of the legacy sensor
 
+    /**
+     * Constructor for the SensorAdapter class.
+     * Initializes the adapter with an instance of the legacy sensor.
+     *
+     * @param legacySensor The legacy sensor to be adapted.
+     */
     public SensorAdapter(LegacySensor legacySensor) {
         this.legacySensor = legacySensor; // Initialize the adapter with the legacy sensor
     }
