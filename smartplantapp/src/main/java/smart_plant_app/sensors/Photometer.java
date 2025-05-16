@@ -3,10 +3,15 @@ package smart_plant_app.sensors;
 public class Photometer implements Sensor {
     private float lightIntensity = 0.0f; // default light intensity
 
+    /**
+     * Reads the light intensity value from the photometer sensor.
+     *
+     * @return The light intensity value read from the sensor.
+     */
     @Override
     public float readValue() {
-        // Simulate reading the light intensity value from a photometer sensor
-        lightIntensity = (float) (100 + Math.random() * 99_900); // Values between 100 and 100,000 lux
-        return Math.round(lightIntensity * 10) / 10.0f; // Rounded to 1 decimal place
-    } 
+        // Simulate reading the sun exposure time in hours
+        lightIntensity = Math.round((100 + Math.random() * 25) * 10) / 10.0f;
+        return lightIntensity;
+    }
 }

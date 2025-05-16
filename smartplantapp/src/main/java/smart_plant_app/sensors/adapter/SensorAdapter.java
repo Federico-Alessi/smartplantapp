@@ -15,6 +15,11 @@ public class SensorAdapter implements Sensor {
         this.legacySensor = legacySensor; // Initialize the adapter with the legacy sensor
     }
 
+    /**
+     * Reads the value from the legacy sensor.
+     *
+     * @return The value read from the legacy sensor.
+     */
     @Override
     public float readValue() {
         // Delegate the readValue call to the adapted sensor
