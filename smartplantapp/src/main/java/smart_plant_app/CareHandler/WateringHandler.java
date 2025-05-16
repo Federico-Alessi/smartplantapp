@@ -1,4 +1,4 @@
-package smart_plant_app.CareHandler;
+package smart_plant_app.careHandler;
 
 import java.time.Instant;
 
