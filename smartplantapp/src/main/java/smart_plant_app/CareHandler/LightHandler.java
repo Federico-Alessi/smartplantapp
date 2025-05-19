@@ -22,10 +22,10 @@ public class LightHandler implements CareHandler {
      */
     @Override
     public void careForPlant(Plant plant) {
-        float lightDifference = plant.getSunHoursNeeded() - plant.readSensor("LightSensor"); // Calculate the difference in light needs
+        float lightDifference = plant.getSunHoursNeeded() - plant.readSensor("Photometer"); // Calculate the difference in light needs
         // Check if the plant needs more light
         if (lightDifference > 3) {
-            System.out.println(plant.getName() + " is receiveing only " + plant.readSensor("LightSensor") + " hours of light. She would be happier if you move her into a palce that receives " + plant.getSunHoursNeeded() + " hours of light.");
+            System.out.println(plant.getName() + " is receiveing only " + plant.readSensor("Photometer") + " hours of light. She would be happier if you move her into a palce that receives " + plant.getSunHoursNeeded() + " hours of light.");
         } else if (lightDifference < -3) {
             System.out.println(plant.getName() + " is receiving too much light. She would be happier if you move her into a place that receives " + plant.getSunHoursNeeded() + " hours of light.");
         } else {

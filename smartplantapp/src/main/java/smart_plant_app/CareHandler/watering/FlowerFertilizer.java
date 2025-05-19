@@ -2,8 +2,8 @@ package smart_plant_app.careHandler.watering;
 
 import smart_plant_app.main_objects.Plant;
 
-public class GreenPlantFertilizer implements WaterAndFertilizer {
-
+public class FlowerFertilizer implements WaterAndFertilizer {
+    
     /**
      * Water the plant.
      * This method prints a message indicating that the plant is being watered.
@@ -22,6 +22,8 @@ public class GreenPlantFertilizer implements WaterAndFertilizer {
      */
     @Override
     public void fertilizePlant(String name) {
-        System.out.println("Giving a boosted drink to " + name + " boosted with green plant fertilizer"); // Print the fertilizing action
+        System.out.println("Giving a boosted drink to " + name + " boosted with flower fertilizer"); // Print the fertilizing action
     }
+
+    
 }

@@ -1,18 +1,24 @@
 package smart_plant_app;
 
+import smart_plant_app.careHandler.LightHandler;
+import smart_plant_app.careHandler.TemperatureHandler;
+import smart_plant_app.careHandler.WateringHandler;
 import smart_plant_app.main_objects.Plant;
 import smart_plant_app.main_objects.PlantFactory;
 
 public class Main {
     public static void main(String[] args) {
 
-        Plant pilea = PlantFactory.createPlant("Pilea", Plant.Category.GREENPLANT);
+        Plant pilea = PlantFactory.createPlant("Pilea", Plant.Categories.GREENPLANT);
 
-        pilea.connectSensors();
         System.out.println(pilea.readSensor("Hygrometer"));
-        pilea.connectSensors();
-        System.out.println(pilea.readSensor("Hygrometer"));
-        System.out.println(pilea.readSensor("Thermometer"));
-        System.out.println(pilea.readSensor("Photometer"));
+
+        WateringHandler wateringHandler = new WateringHandler();
+        TemperatureHandler temperatureHandler = new TemperatureHandler();
+        LightHandler lightHandler = new LightHandler();
+        
+        wateringHandler.setNextStep(temperatureHandler);
+        temperatureHandler.setNextStep(lightHandler);
+        wateringHandler.careForPlant(pilea);
     }
 }
