@@ -1,4 +1,5 @@
 package smart_plant_app.main_objects;
+import java.io.Serializable;
 import java.time.Instant;
 import java.util.HashMap;
 import java.util.Map;
@@ -8,7 +9,7 @@ import smart_plant_app.sensors.Photometer;
 import smart_plant_app.sensors.Sensor;
 import smart_plant_app.sensors.Thermometer;
 
-public class Plant implements House {
+public class Plant implements House, Serializable{
 
     
     /**
@@ -50,6 +51,8 @@ public class Plant implements House {
      * and reconnects to ensure fresh connections.
      */
     public void connectSensors() {
+        // Check if sensor map is already initialized
+        
         // Check if sensors are already connected
         if (!sensors.isEmpty()) { 
             System.out.println("Sensors already connected. Reconnecting...");
@@ -70,8 +73,9 @@ public class Plant implements House {
      * and watering needs.
      */
     @Override
-    public void showDetails() {
-        System.out.println("Plant: " + name + ", Category: " + category + ", Sun Hours Needed: " + sunHoursNeeded + ", Watering Needs: " + wateringNeeds + ", Temperature Needs: " + temperatureNeeds);
+    public String showDetails() {
+        String details ="Plant: " + name + ", Category: " + category + ", Sun Hours Needed: " + sunHoursNeeded + ", Watering Needs: " + wateringNeeds + ", Temperature Needs: " + temperatureNeeds;
+        return details;
     }
     
     /**
@@ -92,12 +96,19 @@ public class Plant implements House {
      * @return The value read from the specified sensor.
      */
     public float readSensor(String sensorKey) {
+
         Sensor sensor = sensors.get(sensorKey); // Retrieve the sensor associated with the given key
+
         if (sensor == null) { // If no sensors are connected, connect them
             System.out.println("No sensors connected. Connecting now...");
             this.connectSensors(); // Connect the sensors
             sensor = sensors.get(sensorKey); // Retrieve the sensor again after connecting
-            return sensor.readValue(); // Read the value from the sensor after connecting
+            try {
+                return sensor.readValue(); // Read the value from the sensor after connecting
+            } catch (NullPointerException e) {
+                System.out.printf("Error finding the sensor: " + e.getMessage());
+                return -1.0f;
+            }
         } else {
             return sensor.readValue(); // Read the value from the sensor if already connected
         }

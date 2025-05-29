@@ -3,6 +3,7 @@ package smart_plant_app.main_objects;
 import smart_plant_app.main_objects.Plant.Categories;
 
 public class PlantFactory {
+
     /**
      * Creates a new Plant object with the specified parameters.
      *
