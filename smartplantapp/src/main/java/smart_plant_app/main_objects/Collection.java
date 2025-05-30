@@ -1,16 +1,28 @@
 package smart_plant_app.main_objects;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class Collection<T extends House> {
+    private final String filename;
+    private final Path path;
 
-    private final Path path = Paths.get("smartplantapp", "src", "main", "resources", "collection.txt");
-    private final String stringPath = path.toString();
+    /**
+     * Constructor for the Collection
+     * 
+     * @param filename Name of the file where the collection will be stored
+     */
+    public Collection(String filename){
+        this.filename=filename.replaceAll("[\\\\/:*?\"<>|]", "").trim()+".txt";
+        this.path = Paths.get("smartplantapp", "src", "main", "resources", this.filename);
+    }
 
     /**
      * Add a plant or a location to the collection
@@ -19,11 +31,17 @@ public class Collection<T extends House> {
      */
     public void addElement(T element) {
 
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(stringPath, true))) {
-            writer.write(element.showDetails());
-            writer.newLine();
-            System.out.println("Element written to file: " + path);
-        } catch (java.io.IOException e) {
+        try {
+            // Append the element's details as a new line to the file using NIO
+            Files.write(
+                    path,
+                    Collections.singletonList(element.showDetails()),
+                    StandardCharsets.UTF_8,
+                    StandardOpenOption.APPEND,
+                    StandardOpenOption.CREATE
+            );
+            System.out.println(element.getName() + " added to your collection");
+        } catch (IOException e) {
             System.err.println("Error writing to file: " + e.getMessage());
         }
     }
@@ -34,19 +52,52 @@ public class Collection<T extends House> {
      * @param element element to remove
      */
     public void removeElement(T element) {
-    }
+        List<String> collectionCopy = new ArrayList<>();
 
-    /*
-     * Print every line of the collection
-     */
-    public void displayElements() {
-        try (BufferedReader reader = new BufferedReader(new FileReader(stringPath))) {
-            String line="";
-            while ((line = reader.readLine())!=null){
-                System.out.println(line);
-            }
+        //copy the collection in the list
+        try {
+            Files.lines(path).forEach(line-> {
+                collectionCopy.add(line);
+            });
         } catch (java.io.IOException e) {
             System.err.println("Error while opening the file" + e.getMessage());
+            return;
+        }
+        
+        // Delete te existing file and copy list to a new one
+        int index = collectionCopy.indexOf(element.showDetails());
+        if (index!=-1) {
+            collectionCopy.remove(index);
+            System.out.println(element.getName() + " removed successfully.");
+            try{
+                Files.delete(path);
+                for (String item : collectionCopy){
+                    Files.write(
+                        path,
+                        Collections.singletonList(item),
+                        StandardCharsets.UTF_8,
+                        StandardOpenOption.APPEND,
+                        StandardOpenOption.CREATE
+                    );
+                }
+            }catch (IOException e){
+               System.err.print("Error while accessing the collection " + e.getMessage());
+           }
+        } else {
+            System.out.println(element.getName() + " is not in your collection");
+        }
+    }
+
+    /**
+     * Display all the elements in the collection
+     */
+    public void displayElements() {
+        try {
+            Files.lines(path).forEach(line-> {
+                System.out.println(line);
+            });
+        } catch (IOException e) {
+            System.err.print(e.getMessage());
         }
     }
 }

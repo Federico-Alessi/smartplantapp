@@ -24,8 +24,12 @@ public class Main {
         temperatureHandler.setNextStep(lightHandler);
         wateringHandler.careForPlant(pilea);
 
-        Collection<Plant> collection = new Collection<>();
+        Collection<Plant> collection = new Collection<>("giovanna");
+        collection.addElement(pilea);
+        collection.addElement(pilea);
+        collection.addElement(cactus);
         collection.displayElements();
-        
+        collection.removeElement(pilea);
+        collection.displayElements();
     }
 }

@@ -1,5 +1,4 @@
 package smart_plant_app.main_objects;
-import java.io.Serializable;
 import java.time.Instant;
 import java.util.HashMap;
 import java.util.Map;
@@ -9,7 +8,7 @@ import smart_plant_app.sensors.Photometer;
 import smart_plant_app.sensors.Sensor;
 import smart_plant_app.sensors.Thermometer;
 
-public class Plant implements House, Serializable{
+public class Plant implements House{
 
     
     /**

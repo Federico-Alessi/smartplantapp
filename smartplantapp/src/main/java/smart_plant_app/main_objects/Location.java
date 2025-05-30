@@ -1,8 +1,7 @@
 package smart_plant_app.main_objects;
-import java.io.Serializable;
 import java.util.List;
 
-public class Location implements House, Serializable {
+public class Location implements House {
     // Location class implements the House interface and represents a location where plants can be placed.
     private boolean isIndoor = true;
     private String name = "";
