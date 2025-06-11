@@ -1,6 +1,6 @@
 package smart_plant_app.misc;
 
-public class misc {
+public class Misc {
 
     /**
      * Method to sanitize string.

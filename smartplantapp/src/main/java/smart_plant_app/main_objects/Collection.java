@@ -12,6 +12,8 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import smart_plant_app.misc.Misc;
+
 
 public class Collection<T extends House> {
     private static final Logger logger = Logger.getLogger("globalLogger");
@@ -24,11 +26,7 @@ public class Collection<T extends House> {
      * @param filename Name of the file where the collection will be stored
      */
     public Collection(String filename){
-        this.filename = filename
-                    .replaceAll("[\\\\/:*?\"<>|]", "") //remove illegal characters
-                    .trim() //remove spaces at end & beginning
-                    .replaceAll(" ", "_") //replace internal spaces with underscore
-                    + ".txt"; //add format
+        this.filename = Misc.sanitize(filename) + ".txt"; //add format
         this.path = Paths.get("smartplantapp", "src", "main", "resources", this.filename);
     }
 
@@ -41,6 +39,7 @@ public class Collection<T extends House> {
 
         try {
             // Append the element's details as a new line to the file using NIO
+            System.out.println("adding plant...");
             Files.write(
                     path,
                     Collections.singletonList(element.showDetails()),
@@ -48,7 +47,6 @@ public class Collection<T extends House> {
                     StandardOpenOption.APPEND,
                     StandardOpenOption.CREATE
             );
-            System.out.println(element.getName() + " added to your collection");
             logger.log(Level.INFO, "{0} added correctly", element.getName());
         } catch (IOException e) {
             logger.log(Level.WARNING, "exception while adding {0}: {1}", new Object[]{element.getName(), e.getMessage()});

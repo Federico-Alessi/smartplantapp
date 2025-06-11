@@ -18,14 +18,14 @@ import smart_plant_app.main_objects.Plant;
 import smart_plant_app.main_objects.PlantFactory;
 
 public class Main {
-    private static final Logger logger = Logger.getLogger("globalLogger");
+    public static final Logger logger = Logger.getLogger("");
     private static final Path loggingPath = Paths.get("smartplantapp", "src", "main", "resources", "logs", "logs.log");
     
     public static void main(String[] args) {
 
         //setup global logger
         logger.setLevel(Level.ALL);
-        logger.log(Level.CONFIG, "Welcome to smartplantapp");
+        // Ensure no duplicate handlers are attached
         for (Handler handler : logger.getHandlers()) {
             logger.removeHandler(handler);
         }
@@ -34,6 +34,7 @@ public class Main {
         consoleHandler.setLevel(Level.ALL);
         consoleHandler.setFormatter(new SimpleFormatter());
         logger.addHandler(consoleHandler);
+        logger.setUseParentHandlers(false);
         //setup file logger for severe logs
         try{
             FileHandler fileHandler = new FileHandler(loggingPath.toString(), 10000, 5, true);
@@ -43,10 +44,12 @@ public class Main {
         } catch (IOException | SecurityException e){
             System.err.println(e.getMessage());
         }
-
+        logger.log(Level.CONFIG, "Welcome to smartplantapp");
+        
         //actual start of application
-        Plant pilea = PlantFactory.createPlant("Pilea", Plant.Categories.GREENPLANT);
+        Plant pilea = PlantFactory.createPlant("Pilina", Plant.Categories.GREENPLANT);
         Plant cactus = PlantFactory.createPlant("Cacta", Plant.Categories.SUCCULENT);
+        Plant c = PlantFactory.createPlant("pothos", Plant.Categories.GREENPLANT);
 
         System.out.println(pilea.readSensor("Hygrometer"));
 
@@ -61,9 +64,9 @@ public class Main {
         Collection<Plant> collection = new Collection<>("gioanna giorgia");
         collection.addElement(pilea);
         collection.addElement(cactus);
+        collection.addElement(c);
         //collection.displayElements();
-        collection.removeElement(pilea);
-        collection.removeElement(pilea);
+        //collection.removeElement(pilea);
         //collection.displayElements();
     }
 }

@@ -4,7 +4,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import smart_plant_app.main_objects.Plant.Categories;
-import smart_plant_app.misc.misc;
+import smart_plant_app.misc.Misc;
 
 public class PlantFactory {
     private static final Logger logger = Logger.getLogger("globalLogger");
@@ -17,7 +17,7 @@ public class PlantFactory {
      * @return A new Plant object with the specified parameters.
      */
     public static Plant createPlant(String name, Categories category) {
-        String sanitizedName = misc.sanitize(name);
+        String sanitizedName = Misc.sanitize(name);
 
         try {
             switch (category) {
