@@ -2,6 +2,8 @@ package smart_plant_app.main_objects;
 import java.time.Instant;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import smart_plant_app.sensors.Hygrometer;
 import smart_plant_app.sensors.Photometer;
@@ -9,6 +11,7 @@ import smart_plant_app.sensors.Sensor;
 import smart_plant_app.sensors.Thermometer;
 
 public class Plant implements House{
+    private static final Logger logger = Logger.getLogger("globalLogger");
 
     
     /**
@@ -50,20 +53,17 @@ public class Plant implements House{
      * and reconnects to ensure fresh connections.
      */
     public void connectSensors() {
-        // Check if sensor map is already initialized
-        
         // Check if sensors are already connected
         if (!sensors.isEmpty()) { 
-            System.out.println("Sensors already connected. Reconnecting...");
+            logger.log(Level.CONFIG, "Sensors already connected. Reconnecting...");
             sensors.clear(); // Clear existing sensors
             this.connectSensors(); // Recursively call to reconnect sensors
-            System.out.println("Sensors reconnected.");
         } else {
             // Add new sensors to the plant
             sensors.put("Hygrometer", new Hygrometer()); // Connect a Hygrometer sensor
             sensors.put("Thermometer", new Thermometer()); // Connect a Thermometer sensor
             sensors.put("Photometer", new Photometer()); // Connect a Photometer sensor
-            System.out.println("Sensors connected: " + sensors.keySet()); // Print the connected sensors
+            logger.log(Level.CONFIG, "Sensors connected: {0}", sensors.keySet()); // Log the connected sensors
         }
     }
     
@@ -99,13 +99,13 @@ public class Plant implements House{
         Sensor sensor = sensors.get(sensorKey); // Retrieve the sensor associated with the given key
 
         if (sensor == null) { // If no sensors are connected, connect them
-            System.out.println("No sensors connected. Connecting now...");
+            logger.log(Level.CONFIG, "No sensors connected. Connecting now...");
             this.connectSensors(); // Connect the sensors
             sensor = sensors.get(sensorKey); // Retrieve the sensor again after connecting
             try {
                 return sensor.readValue(); // Read the value from the sensor after connecting
             } catch (NullPointerException e) {
-                System.out.printf("Error finding the sensor: " + e.getMessage());
+                logger.log(Level.SEVERE, "Error connecting the sensor: {0}", e.getMessage());
                 return -1.0f;
             }
         } else {

@@ -9,8 +9,12 @@ import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 
 public class Collection<T extends House> {
+    private static final Logger logger = Logger.getLogger("globalLogger");
     private final String filename;
     private final Path path;
 
@@ -20,7 +24,11 @@ public class Collection<T extends House> {
      * @param filename Name of the file where the collection will be stored
      */
     public Collection(String filename){
-        this.filename=filename.replaceAll("[\\\\/:*?\"<>|]", "").trim()+".txt";
+        this.filename = filename
+                    .replaceAll("[\\\\/:*?\"<>|]", "") //remove illegal characters
+                    .trim() //remove spaces at end & beginning
+                    .replaceAll(" ", "_") //replace internal spaces with underscore
+                    + ".txt"; //add format
         this.path = Paths.get("smartplantapp", "src", "main", "resources", this.filename);
     }
 
@@ -41,8 +49,9 @@ public class Collection<T extends House> {
                     StandardOpenOption.CREATE
             );
             System.out.println(element.getName() + " added to your collection");
+            logger.log(Level.INFO, "{0} added correctly", element.getName());
         } catch (IOException e) {
-            System.err.println("Error writing to file: " + e.getMessage());
+            logger.log(Level.WARNING, "exception while adding {0}: {1}", new Object[]{element.getName(), e.getMessage()});
         }
     }
 
@@ -60,7 +69,7 @@ public class Collection<T extends House> {
                 collectionCopy.add(line);
             });
         } catch (java.io.IOException e) {
-            System.err.println("Error while opening the file" + e.getMessage());
+            logger.log(Level.WARNING, "exception while removing {0}: {1}", new Object[]{element.getName(), e.getMessage()});
             return;
         }
         
@@ -69,6 +78,7 @@ public class Collection<T extends House> {
         if (index!=-1) {
             collectionCopy.remove(index);
             System.out.println(element.getName() + " removed successfully.");
+            logger.log(Level.INFO, "{0} removed successfully", element.getName());
             try{
                 Files.delete(path);
                 for (String item : collectionCopy){
@@ -81,10 +91,11 @@ public class Collection<T extends House> {
                     );
                 }
             }catch (IOException e){
-               System.err.print("Error while accessing the collection " + e.getMessage());
+               System.err.println("Error while accessing the collection " + e.getMessage());
+               logger.log(Level.WARNING, "exception while accessing the collection: {0}", e.getMessage());
            }
         } else {
-            System.out.println(element.getName() + " is not in your collection");
+            logger.log(Level.INFO, "{0} is not in your list", element.getName());
         }
     }
 
@@ -97,7 +108,7 @@ public class Collection<T extends House> {
                 System.out.println(line);
             });
         } catch (IOException e) {
-            System.err.print(e.getMessage());
+            logger.log(Level.WARNING, "exception while accessing the collection: {0}", e.getMessage());
         }
     }
 }

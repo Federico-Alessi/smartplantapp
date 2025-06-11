@@ -5,6 +5,7 @@ import smart_plant_app.main_objects.Plant;
 public class LightHandler implements CareHandler {
     private CareHandler nextStep; // Next step in the care process
 
+
     /**
      * Sets the next step in the care process.
      *

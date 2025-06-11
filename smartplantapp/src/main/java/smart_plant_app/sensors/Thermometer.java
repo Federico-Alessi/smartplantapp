@@ -11,7 +11,7 @@ public class Thermometer implements Sensor {
     @Override
     public float readValue() {
         // Simulate reading the temperature value from a thermometer sensor
-        temperature = Math.round((-20 + Math.random() * 31) * 10) / 10.0f;
+        temperature = Math.round((-20 + Math.random() * 51) * 10) / 10.0f;
         return temperature; // Returns temperature value
     }
 }

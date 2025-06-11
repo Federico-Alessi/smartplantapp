@@ -1,8 +1,13 @@
 package smart_plant_app.main_objects;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import smart_plant_app.main_objects.Plant.Categories;
+import smart_plant_app.misc.misc;
 
 public class PlantFactory {
+    private static final Logger logger = Logger.getLogger("globalLogger");
 
     /**
      * Creates a new Plant object with the specified parameters.
@@ -12,24 +17,26 @@ public class PlantFactory {
      * @return A new Plant object with the specified parameters.
      */
     public static Plant createPlant(String name, Categories category) {
+        String sanitizedName = misc.sanitize(name);
+
         try {
             switch (category) {
                 case SUCCULENT -> {
-                    System.out.println("Creating a succulent plant.");
-                    return new Plant(name, category, 6, 10.0f, 25.0f);
+                    logger.log(Level.CONFIG, "Creating a succulent plant.");
+                    return new Plant(sanitizedName, category, 6, 10.0f, 25.0f);
                 }
                 case FLOWER -> {
-                    System.out.println("Creating a flower plant.");
-                    return new Plant(name, category, 10, 80.0f, 20.0f);
+                    logger.log(Level.CONFIG, "Creating a flower plant.");
+                    return new Plant(sanitizedName, category, 10, 80.0f, 20.0f);
                 }
                 case GREENPLANT -> {
-                    System.out.println("Creating a green plant.");
-                    return new Plant(name, category, 8, 65.0f, 21.0f);
+                    logger.log(Level.CONFIG, "Creating a green plant.");
+                    return new Plant(sanitizedName, category, 8, 65.0f, 21.0f);
                 }
                 default -> throw new IllegalArgumentException("Unknown category: " + category);
             }
         } catch (IllegalArgumentException e) {
-            System.out.println("Error creating plant: " + e.getMessage());
+            logger.log(Level.SEVERE, "Error creating plant: {0}", e.getMessage());
             return null; // Return null if an error occurs
         }
     }
