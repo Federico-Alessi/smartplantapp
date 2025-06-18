@@ -86,6 +86,15 @@ public class Plant implements House{
     public String getName() {
         return name;
     }
+
+    /**
+     * Prints the result of showDetails().
+     * 
+     */
+    @Override
+    public void printDetails(){
+        System.out.println(this.showDetails());
+    };
     
     /**
      * Reads the value from a specified sensor. If no sensors are connected, it will
