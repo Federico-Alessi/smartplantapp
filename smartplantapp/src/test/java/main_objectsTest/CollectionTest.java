@@ -17,13 +17,13 @@ import smart_plant_app.main_objects.PlantFactory;
 public class CollectionTest {
     
     @Test
-    public void CollectionCreation(){
+    public void collectionCreation(){
         Collection<Plant> collection = new Collection<>(" /test collection ");
         assertEquals("test_collection",collection.getFilename());
     }
 
     @Test
-    public void CollectionAddAndRemove() throws IOException {
+    public void collectionAddAndRemove() throws IOException {
         Collection<Plant> plants = new Collection<>("plants");
         Plant pilea = PlantFactory.createPlant("pilea", Plant.Categories.GREENPLANT);
         plants.addElement(pilea);
@@ -34,8 +34,14 @@ public class CollectionTest {
         assertTrue(lines.contains(pilea.showDetails()));
 
         //remove
+        /**adding second plant because if only 1 plant in collection
+         * removing it causes file deletion
+         * */
+        Plant cactus = PlantFactory.createPlant("cactus", Plant.Categories.SUCCULENT);
+        plants.addElement(cactus);
         plants.removeElement(pilea);
         lines = Files.readAllLines(path);
         assertFalse(lines.contains(pilea.showDetails()));
+        Files.delete(path);
     }
 }

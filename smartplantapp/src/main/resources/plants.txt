@@ -1,2 +1,0 @@
-Plant: cactus, Category: SUCCULENT, Sun Hours Needed: 6.0, Watering Needs: 10.0, Temperature Needs: 25.0
-Plant: cactus, Category: SUCCULENT, Sun Hours Needed: 6.0, Watering Needs: 10.0, Temperature Needs: 25.0

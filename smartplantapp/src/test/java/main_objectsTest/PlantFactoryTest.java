@@ -11,7 +11,7 @@ import smart_plant_app.main_objects.PlantFactory;
 public class PlantFactoryTest {
     
     @Test
-    public void testCreatePlant_Success() {
+    public void testCreatePlant() {
 
         Plant plant = PlantFactory.createPlant("Pilea", Plant.Categories.GREENPLANT);
         assertNotNull(plant);
