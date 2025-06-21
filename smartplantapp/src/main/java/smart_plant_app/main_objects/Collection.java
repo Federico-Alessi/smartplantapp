@@ -18,9 +18,17 @@ import smart_plant_app.misc.Misc;
 public class Collection<T extends House> {
     //logger setup
     private static final Logger logger = Logger.getLogger("globalLogger");
-
+    
     private final String filename;
     private final Path path; //immutable path where collection is stored
+
+    /**
+     * getter for file path
+     * @return the path of the collection file
+     */
+    public Path getPath() {
+        return path;
+    }
     
     /**
      * Constructor for the Collection
@@ -29,7 +37,7 @@ public class Collection<T extends House> {
      */
     public Collection(String filename){
         this.filename = Misc.sanitize(filename) + ".txt"; //sanitize and add extension
-        this.path = Paths.get("smartplantapp", "src", "main", "resources", this.filename);
+        this.path = Paths.get("src", "main", "resources", this.filename);
     }
 
     /**

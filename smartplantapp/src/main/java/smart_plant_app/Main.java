@@ -79,5 +79,6 @@ public class Main {
         balcony.addComponent(gaillardia);
         
         living.printDetails();
+        System.out.println("Working directory: " + System.getProperty("user.dir"));
     }
 }
