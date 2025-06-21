@@ -16,18 +16,30 @@ import smart_plant_app.misc.Misc;
 
 
 public class Collection<T extends House> {
+    //logger setup
     private static final Logger logger = Logger.getLogger("globalLogger");
-    private final String filename;
-    private final Path path;
 
+    private final String filename;
+    private final Path path; //immutable path where collection is stored
+    
     /**
      * Constructor for the Collection
      * 
      * @param filename Name of the file where the collection will be stored
      */
     public Collection(String filename){
-        this.filename = Misc.sanitize(filename) + ".txt"; //add format
+        this.filename = Misc.sanitize(filename) + ".txt"; //sanitize and add extension
         this.path = Paths.get("smartplantapp", "src", "main", "resources", this.filename);
+    }
+
+    /**
+     * getter for collection name
+     * 
+     * @return the file name without the extension
+    */
+    public String getFilename() {
+        String collectionName = filename.replace(".txt", "");
+        return collectionName;
     }
 
     /**
@@ -47,7 +59,7 @@ public class Collection<T extends House> {
                     StandardOpenOption.APPEND,
                     StandardOpenOption.CREATE
             );
-            logger.log(Level.INFO, "{0} added correctly", element.getName());
+            logger.log(Level.INFO, "{0} added to {1}", new Object[]{element.getName(), this.getFilename()});
         } catch (IOException e) {
             logger.log(Level.WARNING, "exception while adding {0}: {1}", new Object[]{element.getName(), e.getMessage()});
         }
@@ -109,4 +121,5 @@ public class Collection<T extends House> {
             logger.log(Level.WARNING, "exception while accessing the collection: {0}", e.getMessage());
         }
     }
+
 }

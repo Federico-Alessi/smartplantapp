@@ -11,6 +11,7 @@ import smart_plant_app.sensors.Sensor;
 import smart_plant_app.sensors.Thermometer;
 
 public class Plant implements House{
+    //logger import
     private static final Logger logger = Logger.getLogger("globalLogger");
 
     

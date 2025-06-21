@@ -48,9 +48,9 @@ public class Main {
         logger.log(Level.CONFIG, "Welcome to smartplantapp");
 
         // actual start of application
-        Plant pilea = PlantFactory.createPlant("Pilina", Plant.Categories.GREENPLANT);
-        Plant cactus = PlantFactory.createPlant("Cacta", Plant.Categories.SUCCULENT);
-        Plant c = PlantFactory.createPlant("pothos", Plant.Categories.GREENPLANT);
+        Plant pilea = PlantFactory.createPlant("Pilea peperomioide", Plant.Categories.GREENPLANT);
+        Plant cactus = PlantFactory.createPlant("Cactus", Plant.Categories.SUCCULENT);
+        Plant gaillardia = PlantFactory.createPlant("gaillardia", Plant.Categories.FLOWER);
 
         System.out.println(pilea.readSensor("Hygrometer"));
 
@@ -65,16 +65,19 @@ public class Main {
         Collection<Plant> collection = new Collection<>("personal_list");
         collection.addElement(pilea);
         collection.addElement(cactus);
-        collection.addElement(c);
+        collection.addElement(gaillardia);
         // collection.displayElements();
         // collection.removeElement(pilea);
         // collection.displayElements();
 
-        Location location = new Location("livingroom", true, 6);
-        location.printDetails();
-        Location sub = new Location("subroom", true, 6);
-        System.out.println(sub.showDetails());
-        location.addComponent(sub);
-        location.printDetails();
+        Location living = new Location("livingroom", true, 6);
+        living.printDetails();
+        Location balcony = new Location("balcony", false, 6);
+        System.out.println(balcony.showDetails());
+        living.addComponent(balcony);
+        living.addComponent(pilea);
+        balcony.addComponent(gaillardia);
+        
+        living.printDetails();
     }
 }

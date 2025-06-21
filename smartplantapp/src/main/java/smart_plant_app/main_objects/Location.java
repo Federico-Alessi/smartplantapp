@@ -1,8 +1,15 @@
 package smart_plant_app.main_objects;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import smart_plant_app.misc.Misc;
 
 public class Location implements House {
+    //logger setup
+    private static final Logger logger = Logger.getLogger("globalLogger");
+
     // Location class implements the House interface and represents a location where plants can be placed.
     private boolean isIndoor = true;
     private String name = "";
@@ -18,7 +25,7 @@ public class Location implements House {
      * @param children    A list of House objects associated with this location.
      */
     public Location(String name, boolean isIndoor, int sunExposure) {
-        this.name = name;
+        this.name = Misc.sanitize(name);
         this.isIndoor = isIndoor;
         this.sunExposure = sunExposure;
     }
@@ -60,7 +67,7 @@ public class Location implements House {
      */
     public void addComponent(House component) {
         children.add(component);
-        System.out.println("ok");
+        logger.log(Level.CONFIG, "{0} added to {1}", new Object[]{component.getName(), this.getName()});
     }
 
     /**
@@ -78,6 +85,11 @@ public class Location implements House {
      * Iterates through the list of children and prints their name
      */
     public void printChildren() {
+        if (children.isEmpty()) {
+            logger.log(Level.INFO, "{0} is empty.", this.getName());
+            return;
+        }
+
         System.out.println("Cildren:");
         for (House child : children) {
             System.out.println(" -" + child.getName());
