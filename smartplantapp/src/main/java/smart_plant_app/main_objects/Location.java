@@ -78,6 +78,7 @@ public class Location implements House {
      */
     public void removeComponent(House component) {
         children.remove(component);
+        logger.log(Level.INFO, "{0} removed from {1}", new Object[]{component.getName(), this.getName()});
     }
 
     /**

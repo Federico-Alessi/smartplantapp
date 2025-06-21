@@ -22,15 +22,16 @@ public class TemperatureHandler implements CareHandler {
      */
     @Override
     public void careForPlant(Plant plant) {
-        float temperatureDifference = plant.getTemperatureNeeds() - plant.readSensor("Thermometer"); // actual temperature - plant's needs
+        float temperature = plant.readSensor("Thermometer");
+        float temperatureDifference = plant.getTemperatureNeeds() - temperature; // actual temperature plant needs
 
         // Notify user if plant's temperature needs are not met
         if (temperatureDifference > 3) {
-            System.out.println(plant.getName() + " is receiving only " + plant.readSensor("Thermometer") + " degrees. She would be happier if you move her into a place that receives " + plant.getTemperatureNeeds() + " degrees.");
+            System.out.println(plant.getName() + " is receiving only " + temperature + " degrees. She would be happier if you move her into a place that receives " + plant.getTemperatureNeeds() + " degrees.");
         } else if (temperatureDifference < -3) {
-            System.out.println(plant.getName() + " is receiving too much light. She would be happier if you move her into a place that receives " + plant.getTemperatureNeeds() + " degrees.");
+            System.out.println(plant.getName() + " is receiving " + temperature + ". She would be happier if you move her into a place that receives " + plant.getTemperatureNeeds() + " degrees.");
         } else {
-            System.out.println(plant.getName() + " is receiving the right amount of light. She is happy!");
+            System.out.println(plant.getName() + " is loving this temperature!");
         }
 
         // If there is a next step, pass the request to it
