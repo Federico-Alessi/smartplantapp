@@ -9,13 +9,13 @@ import smart_plant_app.misc.Misc;
 public class Location implements House {
     //logger setup
     private static final Logger logger = Logger.getLogger("globalLogger");
-
+    
     // Location class implements the House interface and represents a location where plants can be placed.
-    private boolean isIndoor = true;
-    private String name = "";
-    private int sunExposure = 0;
+    private final boolean isIndoor;
+    private final String name;
+    private final int sunExposure;
     private final List<House> children = new ArrayList<>();
-
+    
     /**
      * Constructs a new Location object with the specified attributes.
      *
@@ -29,7 +29,31 @@ public class Location implements House {
         this.isIndoor = isIndoor;
         this.sunExposure = sunExposure;
     }
+    
+    /**
+     * getter for location indoor value
+     * @return true if location is indoor
+    */
+    public boolean getIsIndoor() {
+        return isIndoor;
+    }
+    
+    /**
+     * getter for location sun exposure
+     * @return daily sun exposure in hours
+    */
+    public int getSunExposure() {
+        return sunExposure;
+    }
 
+    /**
+     * getter for location's children
+     * @return children list
+     */
+    public List<House> getChildren() {
+        return children;
+    }
+    
     /**
      * Displays the details of the location, including whether it is indoors or outdoors,
      * its name, and its sun exposure level.
