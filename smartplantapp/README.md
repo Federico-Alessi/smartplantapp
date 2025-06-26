@@ -1,13 +1,33 @@
 # smartplantapp
 
+Smartplantapp is an application that allows you to manage all your plants, providing them water and fertiliser as needed.
+
+Using specific Smartplantapp™ sensors, the app checks if your plants need more or less light and if the temperature is good (Please note that support for other sensors may be limited, but if you contact us, we will be happy to implement it).
+
+You wount even need to know how to care for them!
 
 
 ## Overview
-Smartplantapp is an application that allows you to manage all your plants, providing them water an fertiliser as needed.
-Using specific smartplantapp sensors, the app checks if each plant needs more or less light and if the temperature is good (Please note that support for other sensors may be limited, but if you contact us, we will be happy to implement it).
-You wount even need to know how to care for them, because smartplantapp offers support for all the existing plant categories!
 
-Here's an explanation of how smartplantapp wil make your plant parent life much easier:
+### House
+Smartplantapp most important interface is House, which defines methods that both plants and locations must implement:
+- `showDetails()` returns a string containing all the details about the object; plants and locations are stored in this form in both locations and collections
+- `getName()` returns a string containing the name of the object, it is used by different classes to clarify to the user which object they are working on
+- `printDetails()` prints the string returned by `showDetails()`
+
+### Location
+Location class designed to store plants and other locations within a list; it provides a way to virtually represent the house of the user, but it opens the door for future implementations of other functionalities.
+
+### Plant
+Represents the actual plants, providing details about their light, temperature, soil moisture needs and the date of the last fertilization (set to null by default: must either be updated manually or by the correct handler).
+
+The Categories enum provides 3 categories used to automatically use the correct fertiliser type and allows to add other categories without needing to modify existing plants.
+
+The sensors map stores sensors for each plant thanks to the `connectSensors()` methods, which handles both empty sensors map (adding new sensors) and already filled sensors map (removing existing ones an adding new ones, simulating reconnection).
+
+`readSensor` allows to read specific sensors, also managing an empty sensors map and eventual problems while connecting sensors.
+
+> continue from here
 
 
 
