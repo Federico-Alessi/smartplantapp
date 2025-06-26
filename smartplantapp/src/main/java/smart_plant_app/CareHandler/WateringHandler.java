@@ -32,13 +32,12 @@ public class WateringHandler implements CareHandler {
 
         boolean isWateringNeeded = plant.getWateringNeeds() > plant.readSensor("Hygrometer"); // True if plant needs watering
 
-        boolean isFertilizationNeeded = false; // True if fertilization is needed
+        boolean isFertilizationNeeded = false; // True if fertilization is needed. default to false to avoid overfertilization
 
         try{
             isFertilizationNeeded = plant.getLastFertilized().plus(Period.ofDays(30)).isBefore(Instant.now()); // Check if plant has been watered more than 30 days ago
         }catch (NullPointerException e){
             //Handles plants that have never been fertilized
-            isFertilizationNeeded = false; // Fallback to false to avoid overfertilization
             plant.setLastFertilized(); // Set the last fertilization time to now
         }
         // Check if the plant needs watering

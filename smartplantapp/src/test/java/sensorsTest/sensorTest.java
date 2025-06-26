@@ -1,5 +1,6 @@
-package careHandlerTest;
+package sensorsTest;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 
@@ -46,8 +47,6 @@ public class sensorTest {
 
         waterHandler.setNextStep(tempHandler);
         tempHandler.setNextStep(lightHandler);
-
-        
-
+        assertDoesNotThrow(() -> waterHandler.careForPlant(pilea));
     }
 }
