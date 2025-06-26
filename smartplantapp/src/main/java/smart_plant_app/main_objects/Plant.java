@@ -116,7 +116,7 @@ public class Plant implements House{
                 return sensor.readValue(); // Read the value from the sensor after connecting
             } catch (NullPointerException e) {
                 logger.log(Level.SEVERE, "Error connecting the sensor: {0}", e.getMessage());
-                return -1.0f;
+                return 100f; //returns high moisture level to prevent watering if can't read sensor
             }
         } else {
             return sensor.readValue(); // Read the value from the sensor if already connected
@@ -160,9 +160,8 @@ public class Plant implements House{
     }
     
     /**
-     * Sets the last fertilization time of the plant.
+     * Sets the last fertilization time of the plant to the instant it's called.
      *
-     * @param lastFertilized The last fertilization time to set.
      */
     public void setLastFertilized() {
         this.lastFertilized = Instant.now(); // Set the last fertilization time

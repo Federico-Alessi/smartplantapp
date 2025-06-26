@@ -52,7 +52,7 @@ public class Main {
         Plant cactus = PlantFactory.createPlant("Cactus", Plant.Categories.SUCCULENT);
         Plant gaillardia = PlantFactory.createPlant("gaillardia", Plant.Categories.FLOWER);
 
-        System.out.println(pilea.readSensor("Hygrometer"));
+        //System.out.println(pilea.readSensor("Hygrometer"));
 
         WateringHandler wateringHandler = new WateringHandler();
         TemperatureHandler temperatureHandler = new TemperatureHandler();
