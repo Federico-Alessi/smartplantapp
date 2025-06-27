@@ -17,6 +17,8 @@ import smart_plant_app.main_objects.Collection;
 import smart_plant_app.main_objects.Location;
 import smart_plant_app.main_objects.Plant;
 import smart_plant_app.main_objects.PlantFactory;
+import smart_plant_app.main_objects.location_factory.IndoorCreator;
+import smart_plant_app.main_objects.location_factory.OutdoorCreator;
 
 public class Main {
     private static final Logger logger = Logger.getLogger("");
@@ -46,6 +48,10 @@ public class Main {
         }
         logger.log(Level.CONFIG, "Welcome to smartplantapp");
 
+        // setup of the location Creators
+        IndoorCreator indoor = new IndoorCreator();
+        OutdoorCreator outdoor  = new OutdoorCreator();
+
         // actual start of application
         Plant pilea = PlantFactory.createPlant("Pilea peperomioide", Plant.Categories.GREENPLANT);
         Plant cactus = PlantFactory.createPlant("Cactus", Plant.Categories.SUCCULENT);
@@ -69,9 +75,9 @@ public class Main {
         // collection.removeElement(pilea);
         // collection.displayElements();
 
-        Location living = new Location("livingroom", true, 6);
+        Location living = indoor.createLocation("living room", 6);
         living.printDetails();
-        Location balcony = new Location("balcony", false, 6);
+        Location balcony = outdoor.createLocation("balcony", 6);
         System.out.println(balcony.showDetails());
         living.addComponent(balcony);
         living.addComponent(pilea);
