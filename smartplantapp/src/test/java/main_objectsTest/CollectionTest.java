@@ -26,6 +26,8 @@ public class CollectionTest {
     public void collectionDeletion(){
         Collection<Plant> collection = new Collection<>(" /test collection ");
         Path path = collection.getPath();
+        Plant pilea = PlantFactory.createPlant("pilea", Plant.Categories.GREENPLANT);
+        collection.addElement(pilea);
         collection.delete();
         assertFalse(Files.exists(path));
     }
