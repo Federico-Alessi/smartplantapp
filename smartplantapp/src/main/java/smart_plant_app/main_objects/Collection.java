@@ -130,4 +130,13 @@ public class Collection<T extends House> {
         }
     }
 
+    public void delete() {
+        try{
+            Files.delete(path);
+        }
+        catch (IOException e){
+            logger.log(Level.WARNING, "The collection does not exist: {0}", e.getMessage());
+        }
+    }
+
 }

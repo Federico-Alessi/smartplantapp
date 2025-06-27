@@ -57,7 +57,7 @@ public class Main {
         Plant cactus = PlantFactory.createPlant("Cactus", Plant.Categories.SUCCULENT);
         Plant gaillardia = PlantFactory.createPlant("gaillardia", Plant.Categories.FLOWER);
 
-        //System.out.println(pilea.readSensor("Hygrometer"));
+        System.out.println(pilea.readSensor("Hygrometer"));
 
         WateringHandler wateringHandler = new WateringHandler();
         TemperatureHandler temperatureHandler = new TemperatureHandler();
@@ -71,9 +71,10 @@ public class Main {
         collection.addElement(pilea);
         collection.addElement(cactus);
         collection.addElement(gaillardia);
-        // collection.displayElements();
-        // collection.removeElement(pilea);
-        // collection.displayElements();
+        collection.displayElements();
+        collection.removeElement(pilea);
+        collection.displayElements();
+        collection.delete();
 
         Location living = indoor.createLocation("living room", 6);
         living.printDetails();
@@ -82,7 +83,8 @@ public class Main {
         living.addComponent(balcony);
         living.addComponent(pilea);
         balcony.addComponent(gaillardia);
-        
         living.printDetails();
+        living.removeComponent(pilea);
+        living.printDetails(); 
     }
 }
