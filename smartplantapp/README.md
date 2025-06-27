@@ -27,7 +27,106 @@ The sensors map stores sensors for each plant thanks to the `connectSensors()` m
 
 `readSensor` allows to read specific sensors, also managing an empty sensors map and eventual problems while connecting sensors.
 
-> continue from here
+_Here is a table representing what sensor each key refers to:_
+
+|KEY           |SENSOR         |
+|:------------:|:-------------:|
+|"Hygrometer"  |Hygrometer     |
+|"Thermometer" |Thermometer    |
+|"Photometer"  |Light exposure |
+
+#### Plant factory
+Plant parameters are specific to plant categories, that's why the plant factory simplify the creation of a plant by only requiring the name and the category as parameters.
+
+The factory creates plant objects assigning them the correct parameters based on the category.
+
+### Collections
+`Collection` class allows to create simple .txt databases for plant and location objects.
+
+Elements are stored in the form of text lines, specifically the output of the `showDetails()` method of House objects, providing a way for users to rapidly check all their plants or locations whithout needing to call the method repeatedly.
+
+A collection can store either plants or locations, but not both simultaneously; the reason for this is that, while they are implementations of the same interface, they are radically different elements:
+
+Location collections, for example, can be useful when trying to remember the location of a specific plant, because calling `displayElements()` will display all the children of each location.
+Plant collections, on the other hand, can be useful when trying to remember the needs of different plants simultaneously.
+
+### Sensors
+Sensors are objects used to check the real-time parameters of plants.
+
+each plant has 3 sensors:
+- The hygrometer checks soil moisture
+- The thermometer checks the room temperature
+- The photometer checks the cumulative count of daily sun exposure in hours
+
+Each plant has 1 instance of each sensor, so their readings can be called from each plant individually using `plant.readSensor(String sensorkey)`.
+
+#### Sensor adapter
+The `LegacySensor` class represents a thermometer not specifically designed to be used with smartplantapp.
+
+The `SensorAdapter` class `readValue()` method uses the legacy sensor's specific call to read the value.
+
+> In the final app, the legcy sensor would be recognized automatically, but due to this being a prototype it has to be selected manually from the `Plant.connectSensors()` method's code.
+
+### Care Handlers
+Care Handler is an interface that defines methods to automatically care for plants, based on their needs and their sensors readings.
+
+Handlers can also implement a chain of responsibilities using the `setNextStep(CareHandler nextStep)`.
+
+#### Temperature and Light handlers
+Temperature and light handlers check the difference between temperature and light needs and sensors redings; if requirements are not met, the app notifies the user to move the plant in a different location.
+
+#### Watering handler
+The watering handler class `careForPlant(Plant plant)` method checks the hygrometer and the plant's `lastFertilized` parameter to know if watering and fertilization are needed.
+- If only watering is needed, the handler uses the `Water` strategy to give only water to the plant
+- If water and fertilizer are needed, the handler checks the plant's category and chooses the correct fertilizer type to use, then water the plant using the correct `WaterAndFertilizer` strategy.
+
+### Miscellaneous
+The `Misc` class contains methods for general purpose.
+
+At the moment the only method is `sanitize` which, given a string, removes all prohibited characters, removes spaces at the beginning and at the end and replaces internal spaces with "_".
+
+In future developements this class will be used to add methods that aren't strictly tied to specific classes, helping to reduce boilerplate.
+
+### Logger
+For logging, here's an explanation on how it is configured:
+
+The global logger is retrieved in all the classes that use it:
+```java
+private static final Logger logger = Logger.getLogger("");
+```
+
+In the `main` class, a new .log file is created:
+```java
+private static final Path loggingPath = Paths.get("smartplantapp", "src", "main", "resources", "logs", "logs.log");
+```
+
+Finally, in the `main()` method, the global logger is configured:
+```java
+// Allow logger to manage all log levels
+logger.setLevel(Level.ALL);
+
+// Remove existing handlers
+for (Handler handler : logger.getHandlers()) {
+    logger.removeHandler(handler);
+}
+
+// setup console logger for all levels
+ConsoleHandler consoleHandler = new ConsoleHandler();
+consoleHandler.setLevel(Level.ALL);
+consoleHandler.setFormatter(new SimpleFormatter());
+logger.addHandler(consoleHandler);
+
+// setup file logger for severe logs
+try {
+  FileHandler fileHandler = new FileHandler(loggingPath.toString(), 10000, 5, true);
+  fileHandler.setLevel(Level.WARNING);
+  fileHandler.setFormatter(new SimpleFormatter());
+  logger.addHandler(fileHandler);
+} catch (IOException | SecurityException e) {
+    System.err.println(e.getMessage());
+}
+```
+> This implementation makes sure that all the logging levels are logged in the terminal, while levels WARNING and SEVERE are logged in the .log file specified in the `loggingPath`.
 
 
 
