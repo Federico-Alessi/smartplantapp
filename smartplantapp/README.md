@@ -8,6 +8,10 @@ You wount even need to know how to care for them!
 
 
 ## Overview
+![smart_plant_app](https://github.com/user-attachments/assets/b2cff482-e6b7-425c-81b9-1a18312bd370)
+
+
+
 
 ### House
 Smartplantapp most important interface is House, which defines methods that both plants and locations must implement:
@@ -16,14 +20,14 @@ Smartplantapp most important interface is House, which defines methods that both
 - `printDetails()` prints the string returned by `showDetails()`
 
 ### Location
-Location class designed to store plants and other locations within a list; it provides a way to virtually represent the house of the user, but it opens the door for future implementations of other functionalities.
+Location class is designed to store plants and other locations within a list; it provides a way to virtually represent the house of the user, but it opens the door for future implementations of other functionalities.
 
 Locations can be created using the proper constructor (see [Creating Locations](#creating-locations))
 
 ### Plant
-Represents the actual plants, providing details about their light, temperature, soil moisture needs and the date of the last fertilization (set to null by default: must either be updated manually or by the correct handler).
+Represents the actual plants and provides details about their light, temperature and soil moisture needs and the date of the last fertilization (set to null by default: must either be updated manually or by the correct handler).
 
-The Categories enum provides 3 categories used to automatically use the correct fertiliser type and allows to add other categories without needing to modify existing plants.
+The Categories enum provides 3 categories used to automatically give the correct fertiliser type and allows to add other categories without needing to modify existing plants.
 
 The sensors map stores sensors for each plant thanks to the `connectSensors()` methods, which handles both empty sensors map (adding new sensors) and already filled sensors map (removing existing ones an adding new ones, simulating reconnection).
 
