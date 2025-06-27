@@ -26,7 +26,8 @@ public class CollectionTest {
     public void collectionDeletion(){
         Collection<Plant> collection = new Collection<>(" /test collection ");
         Path path = collection.getPath();
-        assertFalse(() -> Files.exists(path));
+        collection.delete();
+        assertFalse(Files.exists(path));
     }
 
     @Test
