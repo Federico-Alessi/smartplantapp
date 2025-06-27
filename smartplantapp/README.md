@@ -18,6 +18,8 @@ Smartplantapp most important interface is House, which defines methods that both
 ### Location
 Location class designed to store plants and other locations within a list; it provides a way to virtually represent the house of the user, but it opens the door for future implementations of other functionalities.
 
+Locations can be created using the proper constructor (see [Creating Locations](#creating-locations))
+
 ### Plant
 Represents the actual plants, providing details about their light, temperature, soil moisture needs and the date of the last fertilization (set to null by default: must either be updated manually or by the correct handler).
 
@@ -132,14 +134,19 @@ try {
 
 #
 ## Creating locations
-Locations are objects that can store plants and other rooms as childrens; they are useful for choosing the right place to put your plants.
-To create a location, you only need to instantiate a new element of the `Location` class, inserting as parameters:
-1. The name of the location
-2. A boolean true if is an indoor location, otherwise false
-3. The daily sun exposure in hours
+Locations are objects that can store plants and other rooms as childrens; thanks to the `sunExposure` parameter, they are useful for choosing the right place to put your plants.
+
+Before creating locations, you need to instantiate the `IndoorCreator()` and the `OutdoorCreator()`; the first one allows to create rooms, while the second is used to create gardens or balconies.
 ```java
-Location location = new Location(String name, bool isIndoor, int sunExposure);
+IndoorCreator indoor = new IndoorCreator();
+OutdoorCreator outdoor  = new OutdoorCreator();
 ```
+Once instantiated, you can use them to create actual locations:
+```java
+Location living = indoor.createLocation("living room", 6);
+Location balcony = outdoor.createLocation("balcony", 6);
+```
+
 #
 ### Accessing locations
 
