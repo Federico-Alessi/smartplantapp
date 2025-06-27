@@ -8,7 +8,8 @@ You wount even need to know how to care for them!
 
 
 ## Overview
-![smart_plant_app](https://github.com/user-attachments/assets/b2cff482-e6b7-425c-81b9-1a18312bd370)
+
+![smart_plant_app](https://github.com/user-attachments/assets/0fcaf105-189b-4005-8d6b-0c59e45d5495)
 
 
 
@@ -303,6 +304,9 @@ This will display each the elements using `printDetails()`.
 ```java
 plants.displayElements();
 ```
+
+#### Delete the collection
+To delete the collection file, simply call the `deleteCollection
 
 #### Other methods
 There are two methods that can be used for testing purposes:
