@@ -23,6 +23,13 @@ public class CollectionTest {
     }
 
     @Test
+    public void collectionDeletion(){
+        Collection<Plant> collection = new Collection<>(" /test collection ");
+        Path path = collection.getPath();
+        assertFalse(() -> Files.exists(path));
+    }
+
+    @Test
     public void collectionAddAndRemove() throws IOException {
         Collection<Plant> plants = new Collection<>("plants");
         Plant pilea = PlantFactory.createPlant("pilea", Plant.Categories.GREENPLANT);
