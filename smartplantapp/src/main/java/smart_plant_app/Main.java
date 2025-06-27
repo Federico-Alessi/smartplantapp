@@ -19,7 +19,7 @@ import smart_plant_app.main_objects.Plant;
 import smart_plant_app.main_objects.PlantFactory;
 
 public class Main {
-    public static final Logger logger = Logger.getLogger("");
+    private static final Logger logger = Logger.getLogger("");
     private static final Path loggingPath = Paths.get("smartplantapp", "src", "main", "resources", "logs", "logs.log");
 
     public static void main(String[] args) {
@@ -35,7 +35,6 @@ public class Main {
         consoleHandler.setLevel(Level.ALL);
         consoleHandler.setFormatter(new SimpleFormatter());
         logger.addHandler(consoleHandler);
-        logger.setUseParentHandlers(false);
         // setup file logger for severe logs
         try {
             FileHandler fileHandler = new FileHandler(loggingPath.toString(), 10000, 5, true);

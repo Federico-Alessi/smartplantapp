@@ -5,10 +5,11 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import smart_plant_app.sensors.Hygrometer;
 import smart_plant_app.sensors.Photometer;
 import smart_plant_app.sensors.Sensor;
 import smart_plant_app.sensors.Thermometer;
+import smart_plant_app.sensors.adapter.LegacySensor;
+import smart_plant_app.sensors.adapter.SensorAdapter;
 
 public class Plant implements House{
     //logger import
@@ -61,8 +62,9 @@ public class Plant implements House{
             this.connectSensors(); // Recursively call to reconnect sensors
         } else {
             // Add new sensors to the plant
-            sensors.put("Hygrometer", new Hygrometer()); // Connect a Hygrometer sensor
+            //sensors.put("Hygrometer", new Hygrometer()); // Connect a Hygrometer sensor
             sensors.put("Thermometer", new Thermometer()); // Connect a Thermometer sensor
+            sensors.put("Thermometer", new SensorAdapter(new LegacySensor())); //Simulate a legacy sensor to be detected
             sensors.put("Photometer", new Photometer()); // Connect a Photometer sensor
             logger.log(Level.CONFIG, "Sensors connected: {0}", sensors.keySet()); // Log the connected sensors
         }
@@ -174,5 +176,10 @@ public class Plant implements House{
      */
     public Categories getCategory() {
         return category;
+    }
+
+    private void dummyThermometer(Thermometer thermometer, LegacySensor sensor, SensorAdapter adapter){
+        //dummy references to prevent automatic import deletion when saving
+        //TODO: remove this method before publishing
     }
 }

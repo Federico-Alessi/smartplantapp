@@ -11,8 +11,7 @@ public class Hygrometer implements Sensor {
     @Override
     public float readValue() {
         // Simulate reading the humidity value from a hygrometer sensor
-        humidity = (float) (Math.random() * 101);
-        humidity = (float) Math.floor(humidity); // Round down to nearest integer
+        humidity = (float) Math.floor(Math.random() * 101);
         return humidity;
     }
 }
