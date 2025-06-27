@@ -8,6 +8,10 @@ You wount even need to know how to care for them!
 
 
 ## Overview
+![smart_plant_app](https://github.com/user-attachments/assets/b2cff482-e6b7-425c-81b9-1a18312bd370)
+
+
+
 
 ### House
 Smartplantapp most important interface is House, which defines methods that both plants and locations must implement:
