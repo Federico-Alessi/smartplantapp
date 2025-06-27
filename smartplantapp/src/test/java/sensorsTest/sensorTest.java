@@ -35,7 +35,7 @@ public class sensorTest {
     public void photometerTest() {
         for (int i = 1000; i>=0; i--) {
             float reading = pilea.readSensor("Photometer");
-            assertTrue(100<=reading && reading<126);
+            assertTrue(0<=reading && reading<24);
         }
     }
 
